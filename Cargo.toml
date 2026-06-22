@@ -1,0 +1,39 @@
+[package]
+name = "gencode"
+version = "0.1.1"
+edition = "2024"
+description = "G encoding system — a context-dependent, density-maximized data encoding and compression tool"
+license = "MIT"
+repository = "https://github.com/Ultiminium/gencode"
+homepage = "https://github.com/Ultiminium/gencode"
+keywords = ["encoding", "compression", "lz77", "arithmetic-coding", "codec"]
+categories = ["compression", "encoding", "command-line-utilities"]
+readme = "README.md"
+exclude = ["target/", "*.g", "*.gt"]
+
+[lib]
+name = "gencode"
+crate-type = ["cdylib", "staticlib", "rlib"]
+path = "src/lib/mod.rs"
+
+[[bin]]
+name = "g"
+path = "src/main.rs"
+test = false
+
+[dependencies]
+bitvec    = "1.1.1"
+clap      = { version = "4.6.1", features = ["derive"] }
+colored   = "3.1.1"
+dirs      = "6.0.0"
+indicatif = "0.18.4"
+serde     = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+rayon     = "1"
+thiserror = "1"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true
